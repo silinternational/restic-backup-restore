@@ -20,4 +20,10 @@ end=$(date +%s)
 
 logger -p user.info "Repository check completed in $(expr ${end} - ${start}) seconds."
 
+start=$(date +%s)
+runny /usr/local/bin/restic unlock
+end=$(date +%s)
+
+logger -p user.info "Repository unlock completed in $(expr ${end} - ${start}) seconds."
+
 logger -p user.info "...completed backup."
