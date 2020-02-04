@@ -3,7 +3,7 @@
 logger -p user.info "Started backup..."
 
 start=$(date +%s)
-runny /usr/local/bin/restic backup ${RESTIC_BACKUP_ARGS} ${SOURCE_PATH}
+runny /usr/local/bin/restic backup --tag ${RESTIC_TAG} ${RESTIC_BACKUP_ARGS} ${SOURCE_PATH}
 end=$(date +%s)
 
 logger -p user.info "Backup completed in $(expr ${end} - ${start}) seconds."

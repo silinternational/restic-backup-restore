@@ -24,11 +24,11 @@ Docker image to initialize, backup to, and restore from a Restic repository on A
 
 8. `RESTIC_FORGET_ARGS` - additional arguments to pass to 'restic forget --prune' command (e.g., --keep-daily 7 --keep-weekly 5  --keep-monthly 3 --keep-yearly 2)
 
-9. `RESTIC_HOST` - hostname to record as source of backup
+9. `RESTIC_PASSWORD` - password for the Restic repository
 
-10. `RESTIC_PASSWORD` - password for the Restic repository
+10. `RESTIC_REPOSITORY` - Restic repository location (e.g., 's3:s3.amazonaws.com/bucketname/restic')
 
-11. `RESTIC_REPOSITORY` - Restic repository location (e.g., 's3:s3.amazonaws.com/bucketname/restic')
+11. `RESTIC_TAG` - tag to apply to the backup
 
 12. `SOURCE_PATH` - full path to the source directory to be backed up
 
