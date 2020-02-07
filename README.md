@@ -16,7 +16,7 @@ Docker image to initialize, backup to, and restore from a Restic repository on A
 
 4. `CRON_SCHEDULE="0 2 * * *"` - Schedule for cron job, _defaults to every day at 2:00 AM_ [syntax reference](https://en.wikipedia.org/wiki/Cron)
 
-5. `FSBACKUP_MODE=[init|backup|restore]` - 
+5. `FSBACKUP_MODE=[init|backup|restore]` - `init` initializes the Restic repository at `$RESTIC_REPOSITORY` (only do this once); `backup` performs a backup; `restore` performs a restoration.
 
 6. `LOGENTRIES_KEY` - (optional) If provided, the image will send command output to syslog with priority `user.info`.
 
