@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-hostname ${RESTIC_HOST}
-
 if [ "${LOGENTRIES_KEY}" ]; then
     sed -i /etc/rsyslog.conf -e "s/LOGENTRIESKEY/${LOGENTRIES_KEY}/"
     rsyslogd

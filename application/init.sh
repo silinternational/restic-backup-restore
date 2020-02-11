@@ -3,7 +3,7 @@
 logger -p user.info "Started Restic repository initialization..."
 
 start=$(date +%s)
-runny $(/usr/local/bin/restic init)
+runny /usr/local/bin/restic init
 end=$(date +%s)
 
 logger -p user.info "Repository initialization completed in $(expr ${end} - ${start}) seconds."
