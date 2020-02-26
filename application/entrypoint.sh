@@ -9,7 +9,8 @@ else
 fi
 
 # default to every day at 2 am when no schedule is provided
-echo "${CRON_SCHEDULE:=0 2 * * *} runny /data/${FSBACKUP_MODE}.sh" >> /etc/crontabs/root
+#dkn echo "${CRON_SCHEDULE:=0 2 * * *} runny /data/${FSBACKUP_MODE}.sh" >> /etc/crontabs/root
+echo "${CRON_SCHEDULE:=0 2 * * *} /data/${FSBACKUP_MODE}.sh" >> /etc/crontabs/root
 
 #dkn runny $1
 output=$($1 2>&1)
