@@ -11,4 +11,10 @@ fi
 # default to every day at 2 am when no schedule is provided
 echo "${CRON_SCHEDULE:=0 2 * * *} runny /data/${FSBACKUP_MODE}.sh" >> /etc/crontabs/root
 
-runny $1
+#dkn runny $1
+output=$("$1" 2>&1)
+rc=$?
+message="$1: exited, Status: ${rc}, Output: ${output}"
+logger -p 1 -t application.warn "${message}"
+echo "${message}"
+exit ${rc}
