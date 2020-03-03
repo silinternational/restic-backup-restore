@@ -25,4 +25,4 @@ COPY application/ /data/
 WORKDIR /data
 
 ENTRYPOINT ["./entrypoint.sh"]
-CMD ["crond -f"]
+#dkn CMD ["crond -f"]
