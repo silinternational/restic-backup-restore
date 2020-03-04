@@ -3,7 +3,7 @@
 STATUS=0
 
 case "${FSBACKUP_MODE}" in
-	INIT|BACKUP|RESTORE)
+	init|backup|restore)
 		/data/${FSBACKUP_MODE}.sh || STATUS=$?
 		;;
 	*)
