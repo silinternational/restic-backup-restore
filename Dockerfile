@@ -14,4 +14,5 @@ RUN wget https://github.com/restic/restic/releases/download/v${restic_ver}/resti
 COPY application/ /data/
 WORKDIR /data
 
-ENTRYPOINT ["./entrypoint.sh"]
+#dkn ENTRYPOINT ["./entrypoint.sh"]
+CMD ["./entrypoint.sh"]
