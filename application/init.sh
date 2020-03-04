@@ -1,11 +1,19 @@
 #!/usr/bin/env sh
 
-logger -p user.info "Started Restic repository initialization..."
+STATUS=0
+
+echo "restic-backup-restore: init: Started"
 
 start=$(date +%s)
-runny /usr/local/bin/restic init
+/usr/local/bin/restic init || STATUS=$?
 end=$(date +%s)
 
-logger -p user.info "Repository initialization completed in $(expr ${end} - ${start}) seconds."
+if [ $STATUS -ne 0 ]; then
+	echo "restic-backup-restore: FATAL: Repository initialization returned non-zero status ($STATUS) in $(expr ${end} - ${start}) seconds."
+	exit $STATUS
+else
+	echo "restic-backup-restore: Repository initialization completed in $(expr ${end} - ${start}) seconds.
+fi
 
-logger -p user.info "...completed repository initialization."
+echo "restic-backup-restore: init: Completed"
+exit $STATUS

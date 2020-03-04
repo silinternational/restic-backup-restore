@@ -1,4 +1,4 @@
-# docker-restic-backup
+# restic-backup-restore
 Docker image to initialize, backup to, and restore from a Restic repository on AWS S3.
 
 ## How to use it
@@ -14,27 +14,23 @@ Docker image to initialize, backup to, and restore from a Restic repository on A
 
 3. `AWS_DEFAULT_REGION` - AWS default region for S3 bucket 
 
-4. `CRON_SCHEDULE="0 2 * * *"` - Schedule for cron job, _defaults to every day at 2:00 AM_ [syntax reference](https://en.wikipedia.org/wiki/Cron)
+4. `FSBACKUP_MODE=[init|backup|restore]` - `init` initializes the Restic repository at `$RESTIC_REPOSITORY` (only do this once); `backup` performs a backup; `restore` performs a restoration.
 
-5. `FSBACKUP_MODE=[init|backup|restore]` - `init` initializes the Restic repository at `$RESTIC_REPOSITORY` (only do this once); `backup` performs a backup; `restore` performs a restoration.
+5. `RESTIC_BACKUP_ARGS` - additional arguments to pass to 'restic backup' command
 
-6. `LOGENTRIES_KEY` - (optional) If provided, the image will send command output to syslog with priority `user.info`.
+6. `RESTIC_FORGET_ARGS` - additional arguments to pass to 'restic forget --prune' command (e.g., --keep-daily 7 --keep-weekly 5  --keep-monthly 3 --keep-yearly 2)
 
-7. `RESTIC_BACKUP_ARGS` - additional arguments to pass to 'restic backup' command
+7. `RESTIC_HOST` - hostname to be used for the backup
 
-8. `RESTIC_FORGET_ARGS` - additional arguments to pass to 'restic forget --prune' command (e.g., --keep-daily 7 --keep-weekly 5  --keep-monthly 3 --keep-yearly 2)
+8. `RESTIC_PASSWORD` - password for the Restic repository
 
-9. `RESTIC_HOST` - hostname to be used for the backup
+9. `RESTIC_REPOSITORY` - Restic repository location (e.g., 's3:s3.amazonaws.com/bucketname/restic')
 
-10. `RESTIC_PASSWORD` - password for the Restic repository
+10. `RESTIC_TAG` - tag to apply to the backup
 
-11. `RESTIC_REPOSITORY` - Restic repository location (e.g., 's3:s3.amazonaws.com/bucketname/restic')
+11. `SOURCE_PATH` - full path to the source directory to be backed up
 
-12. `RESTIC_TAG` - tag to apply to the backup
-
-13. `SOURCE_PATH` - full path to the source directory to be backed up
-
-14. `TARGET_PATH` - full path to the target directory to be restored to (usually the same as the SOURCE\_PATH)
+12. `TARGET_PATH` - full path to the target directory to be restored to (usually the same as the SOURCE\_PATH)
 
 It's recommended that your S3 bucket **NOT** have versioning turned on.
 Old versions of Restic's repository files are not useful.
