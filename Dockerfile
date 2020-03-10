@@ -5,8 +5,8 @@ RUN apk update \
 
 ARG restic_ver=0.9.6
 
-RUN wget https://github.com/restic/restic/releases/download/v${restic_ver}/restic_${restic_ver}_linux_amd64.bz2 \
-         -O /tmp/restic.bz2 \
+RUN wget -O /tmp/restic.bz2 \
+    https://github.com/restic/restic/releases/download/v${restic_ver}/restic_${restic_ver}_linux_amd64.bz2 \
  && bunzip2 /tmp/restic.bz2 \
  && chmod +x /tmp/restic \
  && mv /tmp/restic /usr/local/bin/restic
@@ -14,5 +14,4 @@ RUN wget https://github.com/restic/restic/releases/download/v${restic_ver}/resti
 COPY application/ /data/
 WORKDIR /data
 
-#dkn ENTRYPOINT ["./entrypoint.sh"]
 CMD ["./entrypoint.sh"]

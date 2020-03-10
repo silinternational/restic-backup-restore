@@ -3,6 +3,7 @@
 STATUS=0
 
 echo "restic-backup-restore: backup: Started"
+echo "restic-backup-restore: Backing up ${SOURCE_PATH}"
 
 start=$(date +%s)
 /usr/local/bin/restic backup --host ${RESTIC_HOST} --tag ${RESTIC_TAG} ${RESTIC_BACKUP_ARGS} ${SOURCE_PATH} || STATUS=$?

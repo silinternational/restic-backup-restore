@@ -3,7 +3,7 @@
 STATUS=0
 
 echo "restic-backup-restore: restore: Started"
-echo "restic-backup-restore: Restoring ${RESTIC_RESTORE_ID}"
+echo "restic-backup-restore: Restoring ${RESTIC_RESTORE_ID} to ${TARGET_PATH}"
 
 start=$(date +%s)
 /usr/local/bin/restic restore ${RESTIC_RESTORE_ID} --host ${RESTIC_HOST} --tag ${RESTIC_TAG} --target ${TARGET_PATH} || STATUS=$?
