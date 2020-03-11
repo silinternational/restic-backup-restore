@@ -1,14 +1,18 @@
 #!/usr/bin/env sh
 
-if [ "${LOGENTRIES_KEY}" ]; then
-    sed -i /etc/rsyslog.conf -e "s/LOGENTRIESKEY/${LOGENTRIES_KEY}/"
-    rsyslogd
-    sleep 10 # ensure rsyslogd is running before we may need to send logs to it
-else
-    logger -p user.error  "Missing LOGENTRIES_KEY environment variable"
+STATUS=0
+
+case "${FSBACKUP_MODE}" in
+	init|backup|restore)
+		/data/${FSBACKUP_MODE}.sh || STATUS=$?
+		;;
+	*)
+		echo restic-backup-restore: FATAL: Unknown FSBACKUP_MODE: ${FSBACKUP_MODE}
+		exit 1
+esac
+
+if [ $STATUS -ne 0 ]; then
+	echo restic-backup-restore: Non-zero exit: $STATUS
 fi
 
-# default to every day at 2 am when no schedule is provided
-echo "${CRON_SCHEDULE:=0 2 * * *} runny /data/${FSBACKUP_MODE}.sh" >> /etc/crontabs/root
-
-runny $1
+exit $STATUS

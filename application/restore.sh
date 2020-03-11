@@ -1,17 +1,31 @@
 #!/usr/bin/env sh
 
-logger -p user.info "Restoring ${RESTIC_RESTORE_ID}..."
+STATUS=0
+
+echo "restic-backup-restore: restore: Started"
+echo "restic-backup-restore: Restoring ${RESTIC_RESTORE_ID} to ${TARGET_PATH}"
 
 start=$(date +%s)
-runny /usr/local/bin/restic restore ${RESTIC_RESTORE_ID} --host ${RESTIC_HOST} --tag ${RESTIC_TAG} --target ${TARGET_PATH}
+/usr/local/bin/restic restore ${RESTIC_RESTORE_ID} --host ${RESTIC_HOST} --tag ${RESTIC_TAG} --target ${TARGET_PATH} || STATUS=$?
 end=$(date +%s)
 
-logger -p user.info "Restoration completed in $(expr ${end} - ${start}) seconds."
+if [ $STATUS -ne 0 ]; then
+	echo "restic-backup-restore: FATAL: Restore returned non-zero status ($STATUS) in $(expr ${end} - ${start}) seconds."
+	exit $STATUS
+else
+	echo "restic-backup-restore: Restore completed in $(expr ${end} - ${start}) seconds."
+fi
 
 start=$(date +%s)
-runny /usr/local/bin/restic unlock
+/usr/local/bin/restic unlock || STATUS=$?
 end=$(date +%s)
 
-logger -p user.info "Repository unlock completed in $(expr ${end} - ${start}) seconds."
+if [ $STATUS -ne 0 ]; then
+	echo "restic-backup-restore: FATAL: Repository unlock returned non-zero status ($STATUS) in $(expr ${end} - ${start}) seconds."
+	exit $STATUS
+else
+	echo "restic-backup-restore: Repository unlock completed in $(expr ${end} - ${start}) seconds."
+fi
 
-logger -p user.info "...completed restore."
+echo "restic-backup-restore: restore: Completed"
+exit $STATUS
