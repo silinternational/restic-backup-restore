@@ -12,7 +12,7 @@ if [ $STATUS -ne 0 ]; then
 	echo "restic-backup-restore: FATAL: Repository initialization returned non-zero status ($STATUS) in $(expr ${end} - ${start}) seconds."
 	exit $STATUS
 else
-	echo "restic-backup-restore: Repository initialization completed in $(expr ${end} - ${start}) seconds.
+	echo "restic-backup-restore: Repository initialization completed in $(expr ${end} - ${start}) seconds."
 fi
 
 echo "restic-backup-restore: init: Completed"
