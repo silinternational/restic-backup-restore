@@ -3,6 +3,9 @@ name: Build and Publish
 on:
   push:
 
+env:
+  IMAGE_NAME: ${{ vars.DOCKER_ORG }}/${{ github.event.repository.name }}
+
 jobs:
   build-and-publish:
     name: Build and Publish
@@ -21,7 +24,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v5
         with:
-          images: ${{ vars.DOCKER_ORG }}/${{ github.event.repository.name }},
+          images: ${{ env.IMAGE_NAME }},
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
@@ -29,4 +32,3 @@ jobs:
           context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
