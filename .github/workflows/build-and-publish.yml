@@ -2,7 +2,7 @@ name: Build and Publish
 
 on:
   push:
-    branches: [ 'main', 'master', 'develop' ] # temporarily add 'develop' for testing multi-arch build
+    branches: [ 'main', 'master' ]
     tags: [ '[0-9]+.[0-9]+.[0-9]+' ]  # Trigger on version tags like '0.1.0'
 
 jobs:
